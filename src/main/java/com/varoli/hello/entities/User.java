@@ -1,7 +1,10 @@
 package com.varoli.hello.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -16,13 +19,19 @@ public class User {
     @NotNull
     private String username;
 
-    public User() {
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Donation> donations;
+
+    public List<Donation> getDonations() {
+        return donations;
     }
 
-    public User(Integer id, String name, String username) {
-        this.id = id;
-        this.name = name;
-        this.username = username;
+    public void setDonations(List<Donation> donations) {
+        this.donations = donations;
     }
 
     public String getName() {
