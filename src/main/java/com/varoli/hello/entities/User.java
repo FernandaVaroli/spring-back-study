@@ -24,7 +24,12 @@ public class User {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @JsonBackReference
     private List<Donation> donations;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private UserPreference userPreference;
 
     public List<Donation> getDonations() {
         return donations;
@@ -56,5 +61,13 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public UserPreference getUserPreference() {
+        return userPreference;
+    }
+
+    public void setUserPreference(UserPreference userPreference) {
+        this.userPreference = userPreference;
     }
 }

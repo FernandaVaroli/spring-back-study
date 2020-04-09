@@ -5,6 +5,8 @@ import com.varoli.hello.services.DonationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/donation")
 public class DonationController {
@@ -23,6 +25,11 @@ public class DonationController {
     @PostMapping("/")
     public Donation createDonation(@RequestBody Donation donation){
         return donationService.createDonation(donation);
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<Donation> getDonationByUser(@PathVariable Integer userId){
+        return donationService.findAllByUserId(userId);
     }
 
 }

@@ -1,33 +1,20 @@
 package com.varoli.hello.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
-import javax.validation.constraints.NegativeOrZero;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Donation {
+public class UserPreference {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @NotNull
-    private Double value;
-
-    @NotNull
     private String currency;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public Integer getId() {
         return id;
@@ -37,14 +24,6 @@ public class Donation {
         this.id = id;
     }
 
-    public Double getValue() {
-        return value;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
-    }
-
     public String getCurrency() {
         return currency;
     }
@@ -52,4 +31,13 @@ public class Donation {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }

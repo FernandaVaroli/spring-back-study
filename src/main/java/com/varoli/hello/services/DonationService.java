@@ -5,6 +5,7 @@ import com.varoli.hello.repository.DonationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,4 +26,11 @@ public class DonationService {
         return donationRepository.save(donation);
     }
 
+
+
+
+
+    public List<Donation> findAllByUserId(Integer userId){
+        return donationRepository.findAllByUserId(userId);
+    }
 }
