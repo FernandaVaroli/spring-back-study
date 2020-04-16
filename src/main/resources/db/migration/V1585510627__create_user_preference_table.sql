@@ -1,5 +1,5 @@
 CREATE TABLE USER_PREFERENCE (
-    id serial PRIMARY KEY,
+    id bigserial PRIMARY KEY,
     currency VARCHAR(45) NOT NULL,
     user_id Integer NOT NULL
 );

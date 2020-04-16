@@ -4,13 +4,16 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull
@@ -24,12 +27,24 @@ public class User {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonBackReference
+    @JsonBackReference(value = "users_donation")
     private List<Donation> donations;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonBackReference(value = "user_user_preference")
     private UserPreference userPreference;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_ong",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "ong_id", referencedColumnName = "id"))
+    private Set<Ong> ongs;
+
+    public User() {
+        this.donations = new ArrayList<>();
+        this.ongs = new HashSet<>();
+    }
 
     public List<Donation> getDonations() {
         return donations;
@@ -61,6 +76,14 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Set<Ong> getOngs() {
+        return ongs;
+    }
+
+    public void setOngs(Set<Ong> ongs) {
+        this.ongs = ongs;
     }
 
     public UserPreference getUserPreference() {

@@ -1,5 +1,5 @@
 CREATE TABLE USER_ong (
-    id serial PRIMARY KEY,
+    id bigserial PRIMARY KEY,
     user_id Integer NOT NULL,
     ong_id Integer NOT NULL
 );

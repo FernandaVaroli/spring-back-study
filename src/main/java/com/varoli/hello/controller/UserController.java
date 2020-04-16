@@ -1,6 +1,7 @@
 package com.varoli.hello.controller;
 
 import com.varoli.hello.entities.User;
+import com.varoli.hello.services.CreateUserService;
 import com.varoli.hello.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,10 +10,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping (path = "/users")
 public class UserController {
     private UserService userService;
+    private CreateUserService createUserService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, CreateUserService createUserService) {
         this.userService = userService;
+        this.createUserService = createUserService;
     }
 
     @GetMapping("/{id}")
@@ -23,6 +26,6 @@ public class UserController {
 
     @PostMapping("/")
     public User createUser(@RequestBody User user){
-        return userService.createUser(user);
+        return createUserService.createUser(user);
     }
 }

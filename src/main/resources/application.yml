@@ -4,7 +4,7 @@ spring:
     show-sql: true
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5432/teste_spring
+    url: jdbc:postgresql://localhost:5432/teste_spring_2
     username: postgres
     password: postgres
     driverClassName: org.postgresql.Driver
